@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Poet">
-<!--        <activity android:name=".Slider"></activity>-->
+        <activity android:name=".Slider" />
 <!--        <activity android:name=".Home" />-->
 <!--        <activity android:name=".Register" />-->
 <!--        <activity android:name=".Login" />-->
