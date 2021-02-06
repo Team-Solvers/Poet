@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="loginInput"  parent="android:Widget.EditText">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <!--        <item name="android:background">#25F8F8F8</item>-->
+        <item name="android:textSize">12dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:radius">20dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:background" tools:ignore="DuplicateDefinition">@drawable/login_input</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+    <style name="login_edit_text">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textColorHint">#fff</item>
+        <item name="android:background">@drawable/login_input</item>
+        <item name="android:padding">12dp</item>
+    </style>
+    
+    <style name="login_btn">
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+</resources>

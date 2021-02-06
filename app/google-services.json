@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1843013305",
+    "project_id": "nkle-aeeec",
+    "storage_bucket": "nkle-aeeec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1843013305:android:30923a188b595b97e41d68",
+        "android_client_info": {
+          "package_name": "com.nkle.poet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1843013305-u41nugr5hp0djev6o3tvao9bjv91kovh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nkle.poet",
+            "certificate_hash": "41dcdd0be9994ac26f0af09b333115063bee94cf"
+          }
+        },
+        {
+          "client_id": "1843013305-6doq78qjrae98lh4s59ugb1fn0pt2s91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFDNdrLspFWHWCVmxzbXKeFFt0iLEfjLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1843013305-6doq78qjrae98lh4s59ugb1fn0pt2s91.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
