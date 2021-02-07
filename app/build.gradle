@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
-    //navigation drawer
+    //navigation drawer and swipeable viewpager 2
     implementation 'com.google.android.material:material:1.2.0-alpha04'
 
 }

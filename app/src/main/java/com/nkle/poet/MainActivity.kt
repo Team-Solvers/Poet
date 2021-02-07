@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 
 class MainActivity : AppCompatActivity() {
     lateinit var toggle : ActionBarDrawerToggle
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //adding trending cards recycler view demo data
+        //doit: wrap images with other layout and give padding to it to give the red colors
         var trendingCards = mutableListOf(
                 TrendingCard("imagePath","Jane Doe"),
                 TrendingCard("imagePath","John Doe"),
@@ -37,6 +39,18 @@ class MainActivity : AppCompatActivity() {
         var mainTrendingCardAdapter = TrendingCardAdapter(trendingCards);
         mainTrendingRecyclerView.adapter = mainTrendingCardAdapter;
         mainTrendingRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        //adding post_cards with swipable view demo data
+        var posts = mutableListOf(
+                Post("James Carter Brown","Roots in everyone heart","Content"),
+                Post("James Carter Brown","Roots in everyone heart","Content"),
+                Post("James Carter Brown","Roots in everyone heart","Content")
+        )
+
+        val postCards : ViewPager2 = findViewById(R.id.post_cards)
+        val mainPostSwipableAdapter = PostCardAdapter(posts)
+        postCards.adapter = mainPostSwipableAdapter
+
 
     }
 

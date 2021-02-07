@@ -3,4 +3,22 @@
     <string name="trending_header">Trending</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+
+<!--    post dummy data-->
+    <string name="post_author">James Carter Brown</string>
+    <string name="post_title">Roots in everyone heart</string>
+    <string name="post_content">
+        <br>There is a tree</br>
+        <br>A wonderful tree.</br>
+        <br>The tree of kindness.</br>
+        <br>It is the fastest growing tree</br>
+        <br>In this world, God bless</br>
+        <br>There is a tree</br>
+        <br>A wonderful tree.</br>
+        <br>The tree of kindness.</br>
+        <br>It is the fastest growing tree</br>
+        <br>In this world, God bless</br>
+
+    </string>
+
 </resources>
