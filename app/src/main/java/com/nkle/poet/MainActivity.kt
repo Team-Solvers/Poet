@@ -16,14 +16,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         //adding navigation drawer to the main activity
         var drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout);
         toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.drawer_open,R.string.drawer_close)
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
 
         //adding trending cards recycler view demo data
         //doit: wrap images with other layout and give padding to it to give the red colors
