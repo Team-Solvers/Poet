@@ -8,7 +8,7 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:radius">20dp</item>
         <item name="android:textColor">#fff</item>
-        <item name="android:background" tools:ignore="DuplicateDefinition">@drawable/login_input</item>
+<!--        <item name="android:background" tools:ignore="DuplicateDefinition">@drawable/login_input</item>-->
         <item name="android:paddingLeft">10dp</item>
     </style>
 
@@ -18,7 +18,7 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#fff</item>
         <item name="android:textColorHint">#fff</item>
-        <item name="android:background">@drawable/login_input</item>
+<!--        <item name="android:background">@drawable/login_input</item>-->
         <item name="android:padding">12dp</item>
     </style>
     

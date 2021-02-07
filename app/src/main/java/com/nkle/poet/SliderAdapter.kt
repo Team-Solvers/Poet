@@ -20,7 +20,7 @@ class SliderAdapter(context: Context): PagerAdapter() {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the ",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the "
     );
-    val slide_images: Array<Int> = arrayOf(R.drawable.first_slide, R.drawable.second_slide, R.drawable.third_slide)
+    val slide_images: Array<Int> = arrayOf(R.drawable.first_slide, R.drawable.first_slide, R.drawable.third_slide)
 
 
 
