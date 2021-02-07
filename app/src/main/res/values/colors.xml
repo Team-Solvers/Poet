@@ -10,8 +10,13 @@
 
     <color name="main_theme_color">#393737</color>
 
+<!--    card colors-->
     <color name="trending_card_background">#564B4B</color>
     <color name="post_card_background">#5B5B5B</color>
+
+<!--    card Gradient-->
+    <color name="cardGradient1">#FF0000</color>
+    <color name="cardGradient2">#D18787</color>
 
 <!--    splash screen colors -->
 
