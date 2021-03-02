@@ -1,5 +1,6 @@
 package com.nkle.poet
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,23 @@ class PostCardAdapter (var posts : List<Post>) : RecyclerView.Adapter<PostCardAd
         viewHolder.apply {
             postAuthor.text = posts[position].postAuthor
             postTitle.text = posts[position].postTitle
-            postContent.setText(R.string.post_content);
+//            postContent.setText(R.string.post_content);
+            postContent.text = posts[position].postContent
+        }
+        viewHolder.itemView.setOnClickListener {
+            val context= viewHolder.postTitle.context
+            val intent = Intent( context, PostDetail::class.java)
+            val poem = hashMapOf(
+                "author" to posts[position].postAuthor.toString(),
+                "title" to posts[position].postTitle.toString(),
+                "id" to posts[position].id,
+                "img_url" to posts[position].img_url.toString(),
+                "content" to posts[position].postContent.toString(),
+                    "like_poems" to posts[position].arr,
+                    "like_count" to posts[position].likeCount
+            )
+            intent.putExtra("poem",poem)
+            context.startActivity(intent);
         }
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:background="@color/main_theme_color">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="70dp"
+        android:id="@+id/title"
+        android:hint="title"
+        android:textSize="35dp"
+        android:textColorHint="@color/white"
+        android:paddingLeft="25dp"
+        android:background="@drawable/text_style"
+        />
+    <EditText
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/text_style"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="25dp"
+        android:gravity="start"
+        android:layout_weight="1"
+        android:hint="Poem here"
+        android:textSize="20dp"
+        android:textColorHint="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:textSize="21.33dp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:text="By:"
+            android:gravity="center_horizontal" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:src="@drawable/trending_image2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:id="@+id/loged_in"
+            android:textSize="17.33dp"
+            android:text="          "
+            android:gravity="center"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/add_post"
+        android:layout_width="match_parent"
+        android:paddingTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        android:fontFamily="@font/montserrat_light"
+        android:text="Post Poem"
+        android:textAllCaps="false"
+        android:textColor="@color/black"/>
+</LinearLayout>

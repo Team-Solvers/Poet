@@ -4,7 +4,7 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-<!--    post dummy data-->
+    <!--    post dummy data-->
     <string name="post_author">James Carter Brown</string>
     <string name="post_title">Roots in everyone heart</string>
     <string name="post_content">
@@ -20,5 +20,11 @@
         <br>In this world, God bless</br>
 
     </string>
+    <string name="f_name_hint">first name</string>
+    <string name="l_name_hint">last name</string>
+    <string name="register_phone_number">Phone number</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="post_content2">lroem ipsum dur;DH liahg dsjhgaksdjfh gkahsdf</string>
 
 </resources>

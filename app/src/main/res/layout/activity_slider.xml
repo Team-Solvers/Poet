@@ -10,9 +10,17 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/slide_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="800dp">
+        android:layout_height="match_parent">
 
     </androidx.viewpager.widget.ViewPager>
 
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="skipME"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:id="@+id/skip_btn"
+        />
 </RelativeLayout>

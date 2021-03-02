@@ -1,61 +1,111 @@
 package com.nkle.poet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
-    lateinit var toggle : ActionBarDrawerToggle
 
+    lateinit var db: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //adding navigation drawer to the main activity
-        var drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout);
-        toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.drawer_open,R.string.drawer_close)
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        //adding trending cards recycler view demo data
-        //doit: wrap images with other layout and give padding to it to give the red colors
-        var trendingCards = mutableListOf(
-                TrendingCard("imagePath","Jane Doe"),
-                TrendingCard("imagePath","John Doe"),
-                TrendingCard("imagePath","Kidus Yoseph"),
-                TrendingCard("imagePath","Natnael Abay"),
-                TrendingCard("imagePath","Liyu Doe"),
-        )
-
+        db = Firebase.firestore
+        val userInfo = intent.getSerializableExtra("user_data") as HashMap<String, Unit>
+        val loadingDialog = LoadingDialog(this)
+        var users = mutableListOf<TrendingCard>()
+        var posts = mutableListOf<Post>()
         var mainTrendingRecyclerView : RecyclerView = findViewById(R.id.rvTrendingCards);
-        var mainTrendingCardAdapter = TrendingCardAdapter(trendingCards);
-        mainTrendingRecyclerView.adapter = mainTrendingCardAdapter;
-        mainTrendingRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        //adding post_cards with swipable view demo data
-        var posts = mutableListOf(
-                Post("James Carter Brown","Roots in everyone heart","Content"),
-                Post("James Carter Brown","Roots in everyone heart","Content"),
-                Post("James Carter Brown","Roots in everyone heart","Content")
-        )
-
+        var mainTrendingCardAdapter = TrendingCardAdapter(users);
         val postCards : ViewPager2 = findViewById(R.id.post_cards)
         val mainPostSwipableAdapter = PostCardAdapter(posts)
         postCards.adapter = mainPostSwipableAdapter
+        mainTrendingRecyclerView.adapter = mainTrendingCardAdapter;
+        mainTrendingRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        loadingDialog.startLoading()
 
 
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item)
+        db.collection("users")
+                .whereNotEqualTo("user_id" , userInfo["user_id"])
+                .get()
+                .addOnSuccessListener {
+                    for (doc in it.documents) {
+                        users.add(TrendingCard(doc["img_url"].toString() , doc["name"].toString(),doc.id.toString(),doc["likes"] as ArrayList<*>,  doc["poems"].toString().toInt() ,doc["user_id"].toString(),
+                        doc["password"].toString()))
+                    }
+                    Toast.makeText(this, users[0].toString(), Toast.LENGTH_SHORT).show()
+
+                    mainTrendingCardAdapter.notifyDataSetChanged()
+                    db.collection("poems")
+                            .get()
+                            .addOnSuccessListener {
+                                    for (doc in it.documents) {
+                                        posts.add(Post(
+                                                doc["name"].toString(),
+                                                doc["title"].toString(),
+                                                doc["body"].toString(),
+                                                doc.id,
+                                                userInfo["likes"] as ArrayList<Unit>,
+                                                doc["like_count"].toString(),
+                                            doc["img_url"].toString()
+                                        ))
+                                    }
+                                mainPostSwipableAdapter.notifyDataSetChanged()
+                                loadingDialog.isDismiss()
+                            }.addOnFailureListener {
+                                Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show()
+                            }
+                    Toast.makeText(this, "successfully added", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "something went wrong wit your internet", Toast.LENGTH_SHORT).show()
+                }
+        //adding post_cards with swipable view demo data
+
+        findViewById<ImageView>(R.id.moon_btn)
+                .setOnClickListener {
+                    val intent = Intent(this , Profile::class.java)
+//                    db.collection("poems")
+//                            .whereEqualTo("user_id", "nnZWClJEVuWhAWExJFOmgBdyohL2")
+//                            .get()
+//                            .addOnSuccessListener {
+//                                var ls = ArrayList<String>()
+//                                for (doc in it.documents) {
+//
+//                                    ls.add(doc["title"].toString() + "," + doc.id.toString() + "," + doc["name"] + "," + doc["body"] + "," +
+//                                            doc.id + "," + userInfo.contains(doc.id) + "," + doc["like_count"])
+//                                }
+////                                Toast.makeText(this,userInfo["img_url"].toString(), Toast.LENGTH_SHORT).show()
+                                val user = hashMapOf(
+                                    "name" to userInfo["name"],
+                                    "img_url" to userInfo["img_url"],
+                                    "likes" to userInfo["likes"],
+                                    "poems" to userInfo["poems"],
+                                    "user_id" to userInfo["user_id"],
+                                    "password" to userInfo["password"],
+                                    "uuid" to userInfo["uuid"],
+                                    "like_poems" to userInfo["likes"]
+                                )
+//
+////
+////                                Toast.makeText(this, user["name"].toString(), Toast.LENGTH_SHORT).show()
+////                                intent.putExtra("img_url", userInfo["img_url"].toString())
+                                intent.putExtra("user_data",user)
+//                                intent.putExtra(  "poems" , ls)
+                                startActivity(intent)
+//                            }.addOnFailureListener {
+//                                Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
+//                            }
+                }
     }
 }

@@ -20,12 +20,13 @@ class SplashScreen : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         Handler(Looper.getMainLooper()).postDelayed({
-            if (auth.currentUser == null) {
+//            if (auth.currentUser == null) {
                 startActivity(Intent(this@SplashScreen, Slider::class.java))
-            } else {
-                startActivity(Intent(this@SplashScreen, MainActivity::class.java))
-
-            }
+            finish()
+//            } else {
+//                startActivity(Intent(this@SplashScreen, Login::class.java))
+//
+//            }
         }, 4000)
     }
 }

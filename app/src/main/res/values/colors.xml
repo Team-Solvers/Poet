@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
+    <color name="body_background">#322D2D</color>
     <color name="main_theme_color">#393737</color>
 
 <!--    card colors-->
@@ -24,4 +24,8 @@
 
 <!--    Text colors-->
     <color name="text_grey">#BBBBBB</color>
+    <color name="registerCardBackground">#534C4C</color>
+    <color name="text_input_hint">#EBEBEB</color>
+    <color name="poem_area">#827D7D</color>
+
 </resources>

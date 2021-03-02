@@ -12,12 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Poet">
+        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".AddPost" />
+        <activity android:name=".PostDetail" />
+        <activity android:name=".Profile" />
+        <activity android:name=".Register" />
+        <activity android:name=".Login" /> <!-- <activity android:name=".Slider" /> &lt;!&ndash; <activity android:name=".Home" /> &ndash;&gt; -->
         <activity android:name=".Slider" />
-<!--        <activity android:name=".Home" />-->
-<!--        <activity android:name=".Register" />-->
-<!--        <activity android:name=".Login" />-->
-<!--        <activity android:name=".MainActivity" />-->
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" /> <!-- <activity android:name=".Register" /> -->
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

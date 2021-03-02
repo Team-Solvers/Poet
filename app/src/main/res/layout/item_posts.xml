@@ -8,7 +8,7 @@
     <LinearLayout
         android:background="@drawable/rounded_post_cards"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:orientation="vertical"
@@ -38,11 +38,11 @@
 
         <TextView
             android:id="@+id/post_content"
-            android:textColor="@color/text_grey"
-            android:paddingLeft="22dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/post_content"/>
+            android:layout_height="244dp"
+            android:paddingLeft="22dp"
+            android:text="@string/post_content"
+            android:textColor="@color/text_grey" />
 
 
     </LinearLayout>

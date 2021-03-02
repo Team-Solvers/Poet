@@ -6,6 +6,7 @@
     android:layout_height="130dp"
     android:layout_marginTop="5dp"
     android:layout_marginLeft="10dp"
+    android:id="@+id/card_trending"
     android:background="@drawable/rounded_trending_cards"
     android:padding="10dp">
 
@@ -20,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:padding="2dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/trending_card_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
