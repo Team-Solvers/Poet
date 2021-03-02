@@ -87,6 +87,7 @@ class Register : AppCompatActivity() {
                                                     val intent = Intent(this, Profile::class.java)
                                                     intent.putExtra("from" , "register")
                                                     intent.putExtra("user_data" , userInfo)
+                                                    intent.putExtra("no_posts" , hashMapOf( "current_post" to "No current Posts!"))
                                                     loadding.isDismiss()
 
                                                     startActivity(intent)

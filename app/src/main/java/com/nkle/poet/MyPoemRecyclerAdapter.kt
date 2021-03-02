@@ -47,36 +47,41 @@ class MyPoemRecyclerAdapter() : RecyclerView.Adapter<MyPoemRecyclerAdapter.myPoe
 //        holder.poemTitle.text = items["poems"][position][""]
 //        for(poem in  items["poems"] as List<Any> ) {
 //        var a =
-        holder.poemTitle.text = items[position]["title"].toString()
+        if(items[position]["posts"] == "No current users") {
+            holder.poemTitle.text = "No current Posts!"
+        } else {
+            holder.poemTitle.text = items[position]["title"].toString()
 
 //           var p =  poem as HashMap<String,*>
-        Log.i("____________ohh_____________", items.toString())
+            Log.i("____________ohh_____________", items.toString())
 //        Toast.makeText(holder.background.context, items[position]["poems"].toString(), Toast.LENGTH_SHORT).show()
-    //
+            //
 //            holder.poemTitle.text = p["asd"] as CharSequence?
 //            break
 //        }
-        if (position % 2 == 0 ) {
-            holder.background.setBackgroundColor( Color.parseColor("#635C5C"))
-        }
-        holder.poemTitle.setOnClickListener {
-            var intent:Intent = Intent(holder.poemTitle.context, PostDetail::class.java)
+            if (position % 2 == 0 ) {
+                holder.background.setBackgroundColor( Color.parseColor("#635C5C"))
+            }
+            holder.poemTitle.setOnClickListener {
+                var intent:Intent = Intent(holder.poemTitle.context, PostDetail::class.java)
 //            intent.putExtra("user_data" , a[position]["user_data"] as HashMap<*,*> )
-            val poem = hashMapOf(
-                "author" to items[position]["name"],
-                "title" to items[position]["title"],
-                "id" to items[position]["user_id"],
-                "uuid" to items[position]["uuid"],
-                "content" to items[position]["content"],
-                "img_url" to items[position]["img_url"],
-                    "like_count" to items[position]["like_count"],
-                    "like_poems" to items[position]["like_count"],
-                    "password" to items[position]["password"],
+                val poem = hashMapOf(
+                        "author" to items[position]["name"],
+                        "title" to items[position]["title"],
+                        "id" to items[position]["user_id"],
+                        "uuid" to items[position]["uuid"],
+                        "content" to items[position]["content"],
+                        "img_url" to items[position]["img_url"],
+                        "like_count" to items[position]["like_count"],
+                        "like_poems" to items[position]["like_count"],
+                        "password" to items[position]["password"],
 //                "like" to items[position]["likes"] as ArrayList<*>
-            )
-            intent.putExtra("poem",poem)
-            holder.poemTitle.context.startActivity(intent)
+                )
+                intent.putExtra("poem",poem)
+                holder.poemTitle.context.startActivity(intent)
+            }
         }
+
     }
     override fun getItemCount(): Int {
 

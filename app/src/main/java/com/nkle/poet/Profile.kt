@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,18 +35,23 @@ class Profile : AppCompatActivity() {
         layoutManager = LinearLayoutManager(this)
         var a = binding.rView
         a.layoutManager = layoutManager
-        val userInfo = intent.getSerializableExtra("user_data")!! as HashMap<*, *>
+        val userInfo = intent.getSerializableExtra("user_data")!! as HashMap<String, Any>
         binding.likes.text = "Likes: " + (userInfo["likes"] as ArrayList<String>).size
         binding.myPoems.text = "Poems: " + userInfo["poems"].toString()
         binding.profileName.text = userInfo["name"].toString()
+        Toast.makeText(this, userInfo["name"].toString(), Toast.LENGTH_SHORT).show()
+        Log.i("++++++" , userInfo.toString())
         if (intent.getStringExtra("from") == "register") {
-//
-//            var arr = hashMapOf<String, String>(
-//                    "no_current" to "No Current Posts!") as HashMap<String,Unit>
-//            adapter = MyPoemRecyclerAdapter(arr)
-//            a.adapter = adapter
-//            val userinfo = intent.getSerializableExtra("user_data") as HashMap<String, Unit>
-//            binding.profile.setImageResource(R.drawable.default_profile)
+
+            val arr = mutableListOf<HashMap<*, *>>(
+                    hashMapOf(
+                            "posts" to "No current users"
+                    )
+                    )
+            adapter = MyPoemRecyclerAdapter(arr)
+            a.adapter = adapter
+            val userinfo = intent.getSerializableExtra("user_data") as HashMap<String, Unit>
+            binding.profile.setImageResource(R.drawable.default_profile)
 
         } else {
             Toast.makeText(this, userInfo["img_url"].toString(), Toast.LENGTH_SHORT).show()

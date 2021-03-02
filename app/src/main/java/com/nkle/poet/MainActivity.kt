@@ -3,6 +3,7 @@ package com.nkle.poet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,6 +13,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db = Firebase.firestore
-        val userInfo = intent.getSerializableExtra("user_data") as HashMap<String, Unit>
+        val userInfo = intent.getSerializableExtra("user_data") as HashMap<String, Any>
         val loadingDialog = LoadingDialog(this)
         var users = mutableListOf<TrendingCard>()
         var posts = mutableListOf<Post>()
@@ -36,14 +40,22 @@ class MainActivity : AppCompatActivity() {
 
 
         db.collection("users")
-                .whereNotEqualTo("user_id" , userInfo["user_id"])
+                .whereNotEqualTo("user_id" , userInfo["UID"])
                 .get()
                 .addOnSuccessListener {
+                    Log.i("*******************" , userInfo["UID"].toString())
+
+//                    it.document.da
+//                    Toast.makeText(this, it.documents[0]["name"].toString(), Toast.LENGTH_SHORT).show()
                     for (doc in it.documents) {
-                        users.add(TrendingCard(doc["img_url"].toString() , doc["name"].toString(),doc.id.toString(),doc["likes"] as ArrayList<*>,  doc["poems"].toString().toInt() ,doc["user_id"].toString(),
-                        doc["password"].toString()))
+
+                        Log.i("*******************" ,doc["name"].toString())
+
+                        users.add(TrendingCard(doc.data!!["img_url"].toString() , doc.data!!["name"] as String,doc.id.toString(),
+                                doc.data!!["likes"] as ArrayList<*>,  doc.data!!["poems"].toString().toInt() ,doc.data!!["UID"].toString(),
+                                doc.data!!["password"].toString()))
                     }
-                    Toast.makeText(this, users[0].toString(), Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, users[0].toString(), Toast.LENGTH_SHORT).show()
 
                     mainTrendingCardAdapter.notifyDataSetChanged()
                     db.collection("poems")
@@ -63,9 +75,9 @@ class MainActivity : AppCompatActivity() {
                                 mainPostSwipableAdapter.notifyDataSetChanged()
                                 loadingDialog.isDismiss()
                             }.addOnFailureListener {
-                                Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show()
+//                                Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show()
                             }
-                    Toast.makeText(this, "successfully added", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "successfully added", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "something went wrong wit your internet", Toast.LENGTH_SHORT).show()
@@ -86,21 +98,22 @@ class MainActivity : AppCompatActivity() {
 //                                            doc.id + "," + userInfo.contains(doc.id) + "," + doc["like_count"])
 //                                }
 ////                                Toast.makeText(this,userInfo["img_url"].toString(), Toast.LENGTH_SHORT).show()
-                                val user = hashMapOf(
-                                    "name" to userInfo["name"],
-                                    "img_url" to userInfo["img_url"],
-                                    "likes" to userInfo["likes"],
-                                    "poems" to userInfo["poems"],
-                                    "user_id" to userInfo["user_id"],
-                                    "password" to userInfo["password"],
-                                    "uuid" to userInfo["uuid"],
-                                    "like_poems" to userInfo["likes"]
-                                )
+//                                val user = hashMapOf(
+//                                    "name" to userInfo["name"],
+//                                    "img_url" to userInfo["img_url"],
+//                                    "likes" to userInfo["likes"],
+//                                    "poems" to userInfo["poems"],
+//                                    "user_id" to userInfo["user_id"],
+//                                    "password" to userInfo["password"],
+//                                    "uuid" to userInfo["uuid"],
+//                                    "like_poems" to userInfo["likes"]
+//                                )
+//                                Log.i("this is me bro" , user.toString())
 //
 ////
 ////                                Toast.makeText(this, user["name"].toString(), Toast.LENGTH_SHORT).show()
 ////                                intent.putExtra("img_url", userInfo["img_url"].toString())
-                                intent.putExtra("user_data",user)
+                                intent.putExtra("user_data",userInfo)
 //                                intent.putExtra(  "poems" , ls)
                                 startActivity(intent)
 //                            }.addOnFailureListener {

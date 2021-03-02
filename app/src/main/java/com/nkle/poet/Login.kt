@@ -66,26 +66,36 @@ class Login : AppCompatActivity() {
                                         .addOnSuccessListener {
 //                                            val newUser:
 //                                            for(doc in it.documents) {
+                                            Log.i("___----" , it.documents[0].data!!["name"].toString())
+                                            Log.i("___----" , it.documents[0].data!!["UID"].toString())
+                                            Log.i("___----" , it.documents[0].data!!["email"].toString())
+                                            Log.i("___----" , it.documents[0].data!!["img_url"].toString())
+                                            Log.i("___----" , it.documents[0].data!!["poems"].toString())
+                                            Log.i("___----" , it.documents[0].data!!["likes"].toString())
+//                                            Log.i("___----" , it.documents[0].data!!["name"].toString())
 
                                               val newUser = hashMapOf(
-                                                    "UID" to user?.uid,
-                                                    "user_id" to user?.uid,
-                                                    "name " to it.documents[0]["name"],
-                                                    "img_url" to user?.photoUrl.toString(),
-                                                    "phone_number" to user?.phoneNumber,
-                                                    "poems" to it.documents[0]["poems"],
-                                                    "likes" to it.documents[0]["likes"] as ArrayList<*>,
-                                                    "email" to user?.email.toString(),
+                                                    "UID" to it.documents[0].data!!["UID"],
+                                                    "user_id" to it.documents[0].data!!["UID"],
+                                                    "name" to it.documents[0].data!!["name"],
+                                                    "img_url" to it.documents[0].data!!["img_url"],
+//                                                    "phone_number" to it.documents[0].data!!["phone"],
+                                                    "poems" to it.documents[0].data!!["poems"],
+                                                    "likes" to it.documents[0].data!!["likes"] as ArrayList<*>,
+                                                    "email" to it.documents[0].data!!["email"],
 //                                                    "like_count" to it.documents[0]["name"]
                                             )
-//                                            Log.i("_________________-", newUser.toString()w)
+                                            Log.i("_________________-", newUser["user_id"].toString())
 //                                            }
+                                            loading.isDismiss()
+                                            val intent = Intent(this@Login,MainActivity::class.java )
                                             intent.putExtra("user_data", newUser)
                                             startActivity(intent)
                                             Toast.makeText(this, "Signed in successfully", Toast.LENGTH_SHORT).show()
                                             finish()
                                         }
                             } else {
+                                loading.isDismiss()
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(baseContext, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show()
