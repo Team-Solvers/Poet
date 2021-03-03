@@ -31,7 +31,7 @@ class Register : AppCompatActivity() {
         val confirmPassword = binding.registerConfirmPassword
         val loading = LoadingDialog(this)
         binding.registerBtn.setOnClickListener {
-            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show()
             if(f_name.text.toString() == "" ||   l_name.text.toString() == ""
                     || email.text.toString() == "" || password.text.toString() == "" ||
                             confirmPassword.text.toString() == ""
@@ -87,7 +87,7 @@ class Register : AppCompatActivity() {
                                                             "poems" to 0,
                                                             "email" to user?.email
                                                     )
-                                                    val intent = Intent(this, Profile::class.java)
+                                                    val intent = Intent(this, Login::class.java)
                                                     intent.putExtra("user_data", user_data)
                                                     intent.putExtra("from" , "register")
                                                     startActivity(intent)
@@ -97,7 +97,7 @@ class Register : AppCompatActivity() {
                                                 }
                                                 .addOnFailureListener {
                                                     Toast.makeText(this, "unsuccess full storing", Toast.LENGTH_SHORT).show()
-                                                    val intent = Intent(this, Profile::class.java)
+                                                    val intent = Intent(this, Login::class.java)
                                                     intent.putExtra("from" , "register")
                                                     intent.putExtra("user_data" , userInfo)
                                                     intent.putExtra("no_posts" , hashMapOf( "current_post" to "No current Posts!"))

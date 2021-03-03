@@ -21,6 +21,7 @@
         app:layout_constraintVertical_bias="0.833" />
 
     <TextView
+        style="@style/montfont"
         android:id="@+id/author_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    style="@style/montfont"
                     android:id="@+id/post_title"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -87,6 +89,7 @@
 
             <TextView
                 android:id="@+id/post_content"
+                style="@style/montfont"
                 android:layout_width="match_parent"
                 android:layout_height="349dp"
                 android:fontFamily="@font/montserrat_light"

@@ -76,10 +76,10 @@ class PostDetail : AppCompatActivity() {
                                         binding.likeCount.text = (poem["like_count"].toString().toInt().toInt() -1).toString()
 //                                        poem["like_count"] =
                                         poem.put("like_count", poem.get("like_count").toString().toInt() - 1 )
-                                        Toast.makeText(this, "all is done here!", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this, "Post liked!", Toast.LENGTH_SHORT).show()
                                         isLiked = false;
                                     }.addOnFailureListener {
-                                        Toast.makeText(this, "Come one man", Toast.LENGTH_SHORT).show()
+//                                        Toast.makeText(this, "like was unsuccesful", Toast.LENGTH_SHORT).show()
                                     }
                         }
 

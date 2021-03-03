@@ -33,7 +33,7 @@ class UserProfile : AppCompatActivity() {
         var a = binding.pView
         a.layoutManager = layoutManager
         val userInfo = intent.getSerializableExtra("user_data")!! as HashMap<*, *>
-        Toast.makeText(this, userInfo["author"].toString(), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, userInfo["author"].toString(), Toast.LENGTH_SHORT).show()
         binding.likes.text = "Likes: " + (userInfo["like_count"] as ArrayList<*>).size
         binding.myPoems.text = 0.toString()
         binding.profileName.text = userInfo["author"].toString()
@@ -65,10 +65,10 @@ class UserProfile : AppCompatActivity() {
                         "password" to userInfo["password"],
                         "uuid" to userInfo["uuid"],
                     )
-                    Toast.makeText(this , it.documents.toString(), Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this , it.documents.toString(), Toast.LENGTH_SHORT).show()
                     for (doc in it.documents) {
 
-                        Toast.makeText(this, doc["title"].toString(), Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this, doc["title"].toString(), Toast.LENGTH_SHORT).show()
                         ls.add(hashMapOf(
                             "title" to doc["title"].toString(),
                             "id" to doc.id,
@@ -92,9 +92,9 @@ class UserProfile : AppCompatActivity() {
                     a.adapter = adapter
 //                    adapter.notifyDataSetChanged()
                     loading.isDismiss()
-                    Toast.makeText(this, userInfo["img_url"].toString(), Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, userInfo["img_url"].toString(), Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
-                    Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "couldn't load", Toast.LENGTH_SHORT).show()
                 }
 
     }
