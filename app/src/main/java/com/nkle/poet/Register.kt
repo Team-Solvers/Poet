@@ -92,6 +92,7 @@ class Register : AppCompatActivity() {
                                                     intent.putExtra("from" , "register")
                                                     startActivity(intent)
                                                     loadding.isDismiss()
+                                                    finish()
     //                                                Toast.makeText(this, "registered Successfully", Toast.LENGTH_SHORT).show()
                                                 }
                                                 .addOnFailureListener {

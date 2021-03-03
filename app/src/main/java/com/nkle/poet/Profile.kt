@@ -142,7 +142,13 @@ class Profile : AppCompatActivity() {
             intent.putExtra("user_data", user)
             startActivity(intent)
         }
+
+        binding.sunBtn.setOnClickListener {
+            finish();
+        }
      }
+
+
 
     @SuppressLint("StaticFieldLeak")
     @Suppress("DEPRECATION")

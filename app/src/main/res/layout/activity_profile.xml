@@ -148,19 +148,19 @@
         android:background="@drawable/floating_btn" >
 
         <ImageView
+            android:id="@+id/sun_btn"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/sun_btn"
             android:src="@drawable/home_icon"
             android:layout_gravity="center_vertical"
             tools:ignore="ContentDescription" />
 
         <ImageView
+            android:id="@+id/moon_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:id="@+id/moon_btn"
             android:src="@drawable/selected_man"
             android:layout_gravity="center_vertical|right"
             tools:ignore="ContentDescription" />
