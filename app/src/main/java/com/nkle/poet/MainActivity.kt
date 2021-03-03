@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 //                    Toast.makeText(this, it.documents[0]["name"].toString(), Toast.LENGTH_SHORT).show()
                     for (doc in it.documents) {
 
-                        Log.i("*******************" ,doc["name"].toString())
+                        Log.i("*******************" ,doc.data.toString())
 
                         users.add(TrendingCard(doc.data!!["img_url"].toString() , doc.data!!["name"] as String,doc.id.toString(),
                                 doc.data!!["likes"] as ArrayList<*>,  doc.data!!["poems"].toString().toInt() ,doc.data!!["UID"].toString(),

@@ -145,7 +145,7 @@ class Login : AppCompatActivity() {
                     val newUser = hashMapOf(
                             "UID" to user?.uid,
                             "user_id" to user?.uid,
-                            "name " to user?.displayName,
+                            "name" to user?.displayName,
                             "img_url" to user?.photoUrl.toString(),
                             "phone_number" to user?.phoneNumber,
                             "poems" to 0,
