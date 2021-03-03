@@ -73,14 +73,11 @@ class PostCardAdapter (var posts : List<Post>) : RecyclerView.Adapter<PostCardAd
 
 
 
-
-
-
     @SuppressLint("StaticFieldLeak")
     @Suppress("DEPRECATION")
     private inner class DownloadImageFromInternet(var imageView: ImageView, val Ctx: Context) : AsyncTask<String, Void, Bitmap?>() {
         init {
-            Toast.makeText(Ctx, "Please wait, it may take a few minute...",     Toast.LENGTH_SHORT).show()
+            Toast.makeText(Ctx, "Loading Posts...",     Toast.LENGTH_SHORT).show()
         }
         override fun doInBackground(vararg urls: String): Bitmap? {
             val imageURL = urls[0]

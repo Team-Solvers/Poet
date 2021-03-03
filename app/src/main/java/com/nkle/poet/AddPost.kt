@@ -79,6 +79,7 @@ class AddPost : AppCompatActivity() {
                                             )
                                             intent.putExtra("user_data", userinfo)
                                             startActivity(intent)
+                                            finish()
                                         }
                                         .addOnFailureListener {
                                             Log.i("error man", it.toString())

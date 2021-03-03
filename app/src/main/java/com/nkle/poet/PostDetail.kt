@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,7 +39,8 @@ class PostDetail : AppCompatActivity() {
         for (l in likes) {
             likeID.add(l.trim())
         }
-        var isLiked = likeID.contains(poem["id"].toString().trim())
+//        var isLiked = likeID.contains(poem["id"].toString().trim())
+        var isLiked = false;
         if(isLiked) {
             binding.likePost.setImageResource(R.drawable.like)
         } else {
@@ -75,8 +77,8 @@ class PostDetail : AppCompatActivity() {
 //                                        poem["like_count"] =
                                         poem.put("like_count", poem.get("like_count").toString().toInt() - 1 )
                                         Toast.makeText(this, "all is done here!", Toast.LENGTH_SHORT).show()
+                                        isLiked = false;
                                     }.addOnFailureListener {
-                                        binding.likePost.setBackgroundResource(R.drawable.like)
                                         Toast.makeText(this, "Come one man", Toast.LENGTH_SHORT).show()
                                     }
                         }
@@ -101,7 +103,7 @@ class PostDetail : AppCompatActivity() {
                                     .addOnSuccessListener {
                                         binding.likeCount.text = (poem["like_count"].toString().toInt() + 1).toString()
                                         isLiked = true
-                                        poem.put("like_count", poem.get("like_count").toString().toInt() - 1 )
+                                        poem.put("like_count", poem.get("like_count").toString().toInt() + 1 )
 
                                         Toast.makeText(this, "all is done here!", Toast.LENGTH_SHORT).show()
                                     }.addOnFailureListener {

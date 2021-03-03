@@ -59,7 +59,7 @@ class Profile : AppCompatActivity() {
 
         }
         else {
-            Toast.makeText(this, userInfo["img_url"].toString(), Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, userInfo["img_url"].toString(), Toast.LENGTH_SHORT).show()
 
 //            val data = intent.getStringArrayListExtra("poems")
             val userinfo = intent.getSerializableExtra("user_data")!! as HashMap<*, *>
@@ -89,7 +89,7 @@ class Profile : AppCompatActivity() {
                         "uuid" to userInfo["uuid"],
                     )
                     for (doc in it.documents) {
-                        Toast.makeText(this, doc["title"].toString(), Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this, doc["title"].toString(), Toast.LENGTH_SHORT).show()
                         ls.add(hashMapOf(
                             "title" to doc["title"].toString(),
                             "id" to doc.id,
@@ -123,7 +123,7 @@ class Profile : AppCompatActivity() {
 
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
-            finish()
+            finishAffinity()
         }
         binding.registerAddPost.setOnClickListener {
             val intent = Intent(this, AddPost::class.java)
