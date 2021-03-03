@@ -60,8 +60,8 @@ class TrendingCardAdapter (var trendingCards : List<TrendingCard>) : RecyclerVie
                     "uuid" to trendingCards[position].id,
                     "img_url" to trendingCards[position].imagePath,
                     "like_count" to trendingCards[position].likes,
-                        "password" to trendingCards[position].password
                 )
+
                 intent.putExtra("user_data" , poem)
                 viewHolder.cardImage.context.startActivity(intent)
             }
