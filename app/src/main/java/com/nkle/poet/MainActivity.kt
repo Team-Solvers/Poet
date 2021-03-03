@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -19,6 +20,7 @@ import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var auth: FirebaseAuth
     lateinit var db: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +38,12 @@ class MainActivity : AppCompatActivity() {
         mainTrendingRecyclerView.adapter = mainTrendingCardAdapter;
         mainTrendingRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         loadingDialog.startLoading()
-
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
 
 
         db.collection("users")
-                .whereNotEqualTo("user_id" , userInfo["UID"])
+                .whereNotEqualTo("UID" , user?.uid)
                 .get()
                 .addOnSuccessListener {
                     Log.i("*******************" , userInfo["UID"].toString())
@@ -69,7 +72,8 @@ class MainActivity : AppCompatActivity() {
                                                 doc.id,
                                                 userInfo["likes"] as ArrayList<Unit>,
                                                 doc["like_count"].toString(),
-                                            doc["img_url"].toString()
+                                            doc["img_url"].toString(),
+                                               userInfo["user_id"].toString()
                                         ))
                                     }
                                 mainPostSwipableAdapter.notifyDataSetChanged()
@@ -84,6 +88,24 @@ class MainActivity : AppCompatActivity() {
                 }
         //adding post_cards with swipable view demo data
 
+        findViewById<ImageView>(R.id.feed_add_post)
+            .setOnClickListener {
+                val intent = Intent(this, AddPost::class.java)
+                val user = hashMapOf(
+                    "name" to userInfo["name"],
+                    "img_url" to userInfo["img_url"],
+                    "likes" to userInfo["likes"],
+                    "poems" to userInfo["poems"],
+                    "user_id" to userInfo["user_id"],
+                    "password" to userInfo["password"],
+                    "uuid" to userInfo["uuid"],
+                )
+                Toast.makeText(this, user["poems"].toString(), Toast.LENGTH_SHORT).show()
+
+//
+                intent.putExtra("user_data", user)
+                startActivity(intent)
+            }
         findViewById<ImageView>(R.id.moon_btn)
                 .setOnClickListener {
                     val intent = Intent(this , Profile::class.java)

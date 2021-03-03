@@ -56,7 +56,7 @@ class Register : AppCompatActivity() {
                                 .addOnCompleteListener(this) { task ->
                                     if (task.isSuccessful) {
                                         // Sign in success, update UI with the signed-in user's information
-
+                                        val result = task.result
                                         val user = auth.currentUser
                                         val userInfo = hashMapOf(
                                                 "name" to "${f_name.text.toString()} ${l_name.text.toString()}",
@@ -75,8 +75,20 @@ class Register : AppCompatActivity() {
                                         db.collection("users")
                                                 .add(userInfo)
                                                 .addOnSuccessListener {
+                                                    val user_data = hashMapOf(
+                                                            "name" to "${f_name.text.toString()} ${l_name.text.toString()}",
+                                                            "img_url" to "1",
+                                                            "poems" to 0,
+                                                            "email" to email.text.toString(),
+                                                            "user_id" to user?.uid.toString(),
+                                                            "UID" to it.id.toString(),
+                                                            "password" to password.text.toString(),
+                                                            "likes" to arrayListOf<String>(),
+                                                            "poems" to 0,
+                                                            "email" to user?.email
+                                                    )
                                                     val intent = Intent(this, Profile::class.java)
-                                                    intent.putExtra("user_data", userInfo)
+                                                    intent.putExtra("user_data", user_data)
                                                     intent.putExtra("from" , "register")
                                                     startActivity(intent)
                                                     loadding.isDismiss()

@@ -157,11 +157,11 @@
             tools:ignore="ContentDescription" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
             android:id="@+id/moon_btn"
-            android:src="@drawable/profile_icon"
+            android:src="@drawable/selected_man"
             android:layout_gravity="center_vertical|right"
             tools:ignore="ContentDescription" />
 

@@ -6,15 +6,23 @@
     android:paddingRight="16dp"
     android:orientation="vertical"
     android:background="@color/main_theme_color">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/poem"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_light"
+        android:textSize="@dimen/text_size" />
     <EditText
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_height="70dp"
         android:id="@+id/title"
-        android:hint="title"
-        android:textSize="35dp"
-        android:textColorHint="@color/white"
-        android:paddingLeft="25dp"
+        android:hint="@string/title"
+        android:textSize="@dimen/t_size"
+        android:textColorHint="@color/color_hint"
+        android:paddingLeft="@dimen/pl"
         android:background="@drawable/text_style"
         />
     <EditText
@@ -24,12 +32,12 @@
         android:background="@drawable/text_style"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:paddingLeft="25dp"
+        android:paddingLeft="@dimen/pl2"
         android:gravity="start"
         android:layout_weight="1"
-        android:hint="Poem here"
-        android:textSize="20dp"
-        android:textColorHint="@color/white"/>
+        android:hint="@string/poem_hint"
+        android:textSize="25dp"
+        android:textColorHint="@color/color_hint"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

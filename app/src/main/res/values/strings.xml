@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Poet</string>
+    <string name="app_name">ስንኝ</string>
     <string name="trending_header">Trending</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
@@ -26,5 +26,9 @@
     <string name="password">password</string>
     <string name="email">email</string>
     <string name="post_content2">lroem ipsum dur;DH liahg dsjhgaksdjfh gkahsdf</string>
+    <string name="poem">Poem</string>
+    <string name="poem_hint">Poem here</string>
+    <string name="title">Title</string>
+    <string name="skip">Skip</string>
 
 </resources>

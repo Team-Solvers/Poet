@@ -26,8 +26,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTrendingCards"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="408dp"
+            android:layout_height="140dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -35,14 +35,57 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <LinearLayout
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvTrendingCards"
+            app:layout_constraintVertical_bias="0.285"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:paddingHorizontal="18dp"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rvTrendingCards"
+                android:background="@drawable/my_peopm_bg"
+
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_light"
+                    android:padding="10dp"
+                    android:text="My Poems"
+                    android:textColor="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/feed_add_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/plus_icon" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rvTrendingCards"
-            app:layout_constraintVertical_bias="0.236">
+            app:layout_constraintVertical_bias="0.411">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/post_cards"
@@ -67,8 +110,8 @@
 
         <ImageView
             android:id="@+id/sun_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:src="@drawable/selected_home"

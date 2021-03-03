@@ -36,8 +36,7 @@ class Login : AppCompatActivity() {
         createRequest()
         // google
         binding.signInButton.setOnClickListener {
-//            signIn()
-            auth.signOut()
+            signIn()
         }
 
         //register listener
@@ -64,26 +63,16 @@ class Login : AppCompatActivity() {
                                         .whereEqualTo("UID" , user?.uid)
                                         .get()
                                         .addOnSuccessListener {
-//                                            val newUser:
-//                                            for(doc in it.documents) {
-                                            Log.i("___----" , it.documents[0].data!!["name"].toString())
-                                            Log.i("___----" , it.documents[0].data!!["UID"].toString())
-                                            Log.i("___----" , it.documents[0].data!!["email"].toString())
-                                            Log.i("___----" , it.documents[0].data!!["img_url"].toString())
-                                            Log.i("___----" , it.documents[0].data!!["poems"].toString())
-                                            Log.i("___----" , it.documents[0].data!!["likes"].toString())
-//                                            Log.i("___----" , it.documents[0].data!!["name"].toString())
 
                                               val newUser = hashMapOf(
                                                     "UID" to it.documents[0].data!!["UID"],
-                                                    "user_id" to it.documents[0].data!!["UID"],
+                                                    "user_id" to it.documents[0].id,
                                                     "name" to it.documents[0].data!!["name"],
                                                     "img_url" to it.documents[0].data!!["img_url"],
 //                                                    "phone_number" to it.documents[0].data!!["phone"],
                                                     "poems" to it.documents[0].data!!["poems"],
                                                     "likes" to it.documents[0].data!!["likes"] as ArrayList<*>,
                                                     "email" to it.documents[0].data!!["email"],
-//                                                    "like_count" to it.documents[0]["name"]
                                             )
                                             Log.i("_________________-", newUser["user_id"].toString())
 //                                            }
@@ -105,45 +94,6 @@ class Login : AppCompatActivity() {
                             // ...
                         }
 
-//                userRef.whereEqualTo("email", email).whereEqualTo("password", pass).get()
-//                    .addOnSuccessListener {
-//                        loading.isDismiss()
-//                        if(it.documents.size == 0) {
-//                            Toast.makeText(this, "login error ma man", Toast.LENGTH_SHORT).show()
-//                        } else {
-//                            Log.i(
-//                                    "saved asd+__________________",
-//                                    it.documents[0]["name"].toString()
-//                            )
-//                            val user = hashMapOf(
-//                                    "name" to it.documents[0]["name"],
-//                                    "img_url" to it.documents[0]["img_url"],
-//                                    "likes" to it.documents[0]["likes"],
-//                                    "poems" to it.documents[0]["poems"],
-//                                    "user_id" to it.documents[0]["user_id"],
-//                                    "password" to it.documents[0]["password"],
-//                                    "uuid" to it.documents[0].id,
-////                                    "like_poems" to it.documents[0]["likes"]
-//                            )
-////
-//                            Toast.makeText(this, user["poems"].toString(), Toast.LENGTH_SHORT).show()
-//
-//                            val intent = Intent(this, MainActivity::class.java)
-//                            intent.putExtra("user_data", user)
-//                            startActivity(intent)
-//
-////                            Toast.makeText(this, user["uuid"].toString(), Toast.LENGTH_SHORT).show()
-//                        }
-//
-//                    }
-//                        .addOnFailureListener {
-//                        loading.isDismiss()
-//                        Toast.makeText(
-//                                this,
-//                                "something went wrong in your internet probably",
-//                                Toast.LENGTH_SHORT
-//                        ).show()
-//                    };
             }
         }
     }

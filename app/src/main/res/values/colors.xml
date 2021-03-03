@@ -27,5 +27,6 @@
     <color name="registerCardBackground">#534C4C</color>
     <color name="text_input_hint">#EBEBEB</color>
     <color name="poem_area">#827D7D</color>
+    <color name="color_hint">#80FFFFFF</color>
 
 </resources>

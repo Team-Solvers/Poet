@@ -23,36 +23,101 @@ class PostDetail : AppCompatActivity() {
         binding = ActivityPostDetailBinding.inflate(layoutInflater)
         var root = binding.root
         setContentView(root)
-        val poem = intent.getSerializableExtra("poem") as HashMap<String, Unit>
+        db = Firebase.firestore
+        //edited
+        val poem = intent.getSerializableExtra("poem") as HashMap<String, Any>
         binding.authorName.text = "BY: ${poem["author"].toString()}"
-//        binding.postTitle.text = poem["title"].toString()
-//        binding.postContent.text = poem["content"].toString()
+        binding.postTitle.text = poem["title"].toString()
+        binding.postContent.text = poem["content"].toString()
         Toast.makeText(this, poem["author"].toString(), Toast.LENGTH_SHORT).show()
 //        db = Firebase.firestore
 //
 ////        var a = mutableListOf("0")
-//        var likes = poem["like_poems"].toString().replace("[","").replace("]", "").split(",")
-//        var likeID = mutableListOf<String>()
-//        for (l in likes) {
-//            likeID.add(l.trim())
-//        }
-//        var isLiked = likeID.contains(poem["id"].toString().trim())
-//        if(isLiked) {
-//            binding.likePost.setImageResource(R.drawable.like)
-//        } else {
-//            binding.likePost.setImageResource(R.drawable.unlike)
-//
-//        }
+        var likes = poem["like_poems"].toString().replace("[","").replace("]", "").split(",")
+        var likeID = mutableListOf<String>()
+        for (l in likes) {
+            likeID.add(l.trim())
+        }
+        var isLiked = likeID.contains(poem["id"].toString().trim())
+        if(isLiked) {
+            binding.likePost.setImageResource(R.drawable.like)
+        } else {
+            binding.likePost.setImageResource(R.drawable.unlike)
+
+        }
 //        Toast.makeText(this,poem["img_url"].toString(), Toast.LENGTH_SHORT).show()
-//        DownloadImageFromInternet(findViewById<ImageView>(R.id.post_author_image)).execute(poem["img_url"].toString())
+        if(poem["img_url"].toString() != "1") {
+            DownloadImageFromInternet(findViewById<ImageView>(R.id.post_author_image)).execute(poem["img_url"].toString())
+        }
 //
 //        Toast.makeText(this,(binding.likePost.drawable == resources.getDrawable(R.drawable.unlike)).toString()   , Toast.LENGTH_SHORT).show()
 //
-//        binding.likeCount.text = poem["like_count"].toString()
+        binding.likeCount.text = poem["like_count"].toString()
 //
-//        binding.likePost.setOnClickListener {
-//
-//        }
+        binding.likePost.setOnClickListener {
+
+            if(isLiked) {
+
+                binding.likePost.setBackgroundResource(R.drawable.unlike)
+//                likeID.removeAt()
+                db.collection("poems")
+                        .document(poem["id"].toString())
+                            .update("like_count", poem["like_count"].toString().toInt() - 1)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Successfull", Toast.LENGTH_SHORT).show()
+                            likeID.remove(poem["id"].toString())
+                            db.collection("users")
+                                    .document( poem["user_id"].toString())
+                                    .update("likes", likeID)
+                                    .addOnSuccessListener {
+                                        isLiked = false
+                                        binding.likeCount.text = (poem["like_count"].toString().toInt().toInt() -1).toString()
+//                                        poem["like_count"] =
+                                        poem.put("like_count", poem.get("like_count").toString().toInt() - 1 )
+                                        Toast.makeText(this, "all is done here!", Toast.LENGTH_SHORT).show()
+                                    }.addOnFailureListener {
+                                        binding.likePost.setBackgroundResource(R.drawable.like)
+                                        Toast.makeText(this, "Come one man", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                        }
+
+            } else {
+                binding.likePost.setBackgroundResource(R.drawable.like)
+                likeID.removeAt(0)
+
+                db.collection("poems")
+                        .document(poem["id"].toString())
+                        .update("like_count", poem["like_count"].toString().toInt() + 1)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Successfull", Toast.LENGTH_SHORT).show()
+                            likeID.add(poem["id"].toString())
+                            db.collection("users")
+                                    .document( poem["user_id"].toString())
+                                    .update("likes", likeID)
+                                    .addOnSuccessListener {
+                                        binding.likeCount.text = (poem["like_count"].toString().toInt() + 1).toString()
+                                        isLiked = true
+                                        poem.put("like_count", poem.get("like_count").toString().toInt() - 1 )
+
+                                        Toast.makeText(this, "all is done here!", Toast.LENGTH_SHORT).show()
+                                    }.addOnFailureListener {
+                                        binding.likePost.setBackgroundResource(R.drawable.unlike)
+
+                                        Toast.makeText(this, "Come one man", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+
+                        .addOnFailureListener {
+                            binding.likePost.setBackgroundResource(R.drawable.unlike)
+
+                            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                        }
+            }
+        }
     }
 
     @SuppressLint("StaticFieldLeak")

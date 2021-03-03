@@ -3,6 +3,7 @@
 package com.nkle.poet
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -22,6 +24,7 @@ import com.nkle.poet.databinding.ActivityProfileBinding
 class Profile : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<MyPoemRecyclerAdapter.myPoemViewHolder>? = null
+    lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityProfileBinding
 
     private lateinit var db: FirebaseFirestore
@@ -31,6 +34,7 @@ class Profile : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         val view = binding.root
         db = Firebase.firestore
+        auth = FirebaseAuth.getInstance()
         setContentView(view)
         layoutManager = LinearLayoutManager(this)
         var a = binding.rView
@@ -53,7 +57,8 @@ class Profile : AppCompatActivity() {
             val userinfo = intent.getSerializableExtra("user_data") as HashMap<String, Unit>
             binding.profile.setImageResource(R.drawable.default_profile)
 
-        } else {
+        }
+        else {
             Toast.makeText(this, userInfo["img_url"].toString(), Toast.LENGTH_SHORT).show()
 
 //            val data = intent.getStringArrayListExtra("poems")
@@ -66,9 +71,10 @@ class Profile : AppCompatActivity() {
 //            this is a demo
 
 
+            val user = auth.currentUser
             loading.startLoading()
             db.collection("poems")
-                .whereEqualTo("user_id", userInfo["uuid"])
+                .whereEqualTo("user_id", user?.uid )
                 .get()
                 .addOnSuccessListener {
 
@@ -83,7 +89,6 @@ class Profile : AppCompatActivity() {
                         "uuid" to userInfo["uuid"],
                     )
                     for (doc in it.documents) {
-
                         Toast.makeText(this, doc["title"].toString(), Toast.LENGTH_SHORT).show()
                         ls.add(hashMapOf(
                             "title" to doc["title"].toString(),
@@ -111,8 +116,14 @@ class Profile : AppCompatActivity() {
         }
 
         binding.registerLogout.setOnClickListener {
+            auth.signOut()
+            var sharedPref = getSharedPreferences("myPref", Context.MODE_PRIVATE)
+            var editor = sharedPref.edit();
+
+
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
+            finish()
         }
         binding.registerAddPost.setOnClickListener {
             val intent = Intent(this, AddPost::class.java)
