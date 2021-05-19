@@ -20,7 +20,7 @@ import com.nkle.poet.databinding.ActivityLoginBinding
 class Login : AppCompatActivity() {
     private lateinit var  mGoogleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
-    private val RC_SIGN_IN  = 1
+    private val RC_SIGN_IN  = 123
     private val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
     private lateinit var db:  FirebaseFirestore
     private lateinit var binding: ActivityLoginBinding
@@ -33,15 +33,17 @@ class Login : AppCompatActivity() {
         db = Firebase.firestore
         val userRef = db.collection("users")
         //request created
-        createRequest()
         // google
         binding.signInButton.setOnClickListener {
             signIn()
+
         }
+        createRequest()
+
 
         //register listener
         binding.registerBtn.setOnClickListener {
-            startActivity(Intent(this@Login, Register::class.java ))
+            startActivity(Intent(this@Login, Register::class.java))
             finish()
         }
 
@@ -60,24 +62,24 @@ class Login : AppCompatActivity() {
                                 // Sign in success, update UI with the signed-in user's information
                                 val user = auth.currentUser
                                 db.collection("users")
-                                        .whereEqualTo("UID" , user?.uid)
+                                        .whereEqualTo("UID", user?.uid)
                                         .get()
                                         .addOnSuccessListener {
 
                                               val newUser = hashMapOf(
-                                                    "UID" to it.documents[0].data!!["UID"],
-                                                    "user_id" to it.documents[0].id,
-                                                    "name" to it.documents[0].data!!["name"],
-                                                    "img_url" to it.documents[0].data!!["img_url"],
+                                                      "UID" to it.documents[0].data!!["UID"],
+                                                      "user_id" to it.documents[0].id,
+                                                      "name" to it.documents[0].data!!["name"],
+                                                      "img_url" to it.documents[0].data!!["img_url"],
 //                                                    "phone_number" to it.documents[0].data!!["phone"],
-                                                    "poems" to it.documents[0].data!!["poems"],
-                                                    "likes" to it.documents[0].data!!["likes"] as ArrayList<*>,
-                                                    "email" to it.documents[0].data!!["email"],
-                                            )
+                                                      "poems" to it.documents[0].data!!["poems"],
+                                                      "likes" to it.documents[0].data!!["likes"] as ArrayList<*>,
+                                                      "email" to it.documents[0].data!!["email"],
+                                              )
                                             Log.i("_________________-", newUser["user_id"].toString())
 //                                            }
                                             loading.isDismiss()
-                                            val intent = Intent(this@Login,MainActivity::class.java )
+                                            val intent = Intent(this@Login, MainActivity::class.java)
                                             intent.putExtra("user_data", newUser)
                                             startActivity(intent)
                                             Toast.makeText(this, "Signed in successfully", Toast.LENGTH_SHORT).show()
@@ -116,16 +118,19 @@ class Login : AppCompatActivity() {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
+                Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show()
                 // Google Sign In was successful, authenticate with Firebase
-//                Toast.makeText(this, "got google user data", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this, "got google user data", Toast.LENGTH_SHORT).show()
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
+                Log.i("--------------" , e.toString())
                 // Google Sign zzIn failed, update UI appropriately
                 // ...
-                Toast.makeText(this, "some error occurred please check your internet! ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "some error occurred!", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -164,10 +169,10 @@ class Login : AppCompatActivity() {
                                             .addOnSuccessListener {
                                                 intent.putExtra("user_data", newUser)
                                                 startActivity(intent)
-                                                Toast.makeText(this, "Well this was successful", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(this, "successful Signin", Toast.LENGTH_SHORT).show()
                                             }
                                             .addOnFailureListener {
-                                                Toast.makeText(this, "there was an error here bro", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show()
                                             }
                                             loading.isDismiss()
                                             intent.putExtra("user_data", newUser)
@@ -176,29 +181,12 @@ class Login : AppCompatActivity() {
                                     loading.isDismiss()
                                     intent.putExtra("user_data", newUser)
                                     startActivity(intent)
-//                                    Toast.makeText(this, "yeahye", Toast.LENGTH_SHORT).show()
                                 }
                             }.addOnFailureListener {
                                 Toast.makeText(this, "register", Toast.LENGTH_SHORT).show()
                             }
 
-//                    db.collection("users")
-//                            .add(newUser)
-//                            .addOnSuccessListener { it ->
-//                                Toast.makeText(this , ("data successfully added to the store"), Toast.LENGTH_SHORT).show()
-//                                val intent = Intent(this,Profile::class.java)
-//                                intent.putExtra("photo_url" , newUser["img_url"].toString())
-//                                intent.putExtra("name" , newUser["name"].toString())
-//                                startActivity(intent)
-//                            }
-//
-//                            .addOnFailureListener{
-//                                Toast.makeText(this, "something went wrong when storing gmail data", Toast.LENGTH_SHORT).show()
-//
-//                            }
-//
-//
-//
+
 //                    // Log.i("saved UUID  __________________________", newUser["UID"].toString())
 //                    db.collection("poems")
 //                            .whereEqualTo("user_id", newUser["UID"])
