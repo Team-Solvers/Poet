@@ -14,13 +14,13 @@ class SliderAdapter(context: Context): PagerAdapter() {
 
 
     lateinit var layoutInflater: LayoutInflater
-    val Heading: Array<String> = arrayOf("Poetry", "SLEEP", "CODE")
+    val Heading: Array<String> = arrayOf("Poetry", "Explore", "Literature")
     val slide: Array<String> = arrayOf(
         "Poetry is the spontaneous overflow of powerful feelings: it takes its origin from emotion recollected in tranquility.",
         "Poetry is an orphan of silence. The words never quite equal the experience behind them.",
         "The poet is a liar who always speaks the truth."
     );
-    val slide_images: Array<Int> = arrayOf(R.drawable.first_slide, R.drawable.first_slide, R.drawable.third_slide)
+    val slide_images: Array<Int> = arrayOf(R.drawable.first_slide, R.drawable.third_slide , R.drawable.first_slide)
 
 
 
