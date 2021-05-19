@@ -128,6 +128,7 @@
 
 
     </RelativeLayout>
+<!--    this is the recycler view-->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/me"
         android:layout_marginTop="10dp"
