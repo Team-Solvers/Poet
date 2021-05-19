@@ -15,11 +15,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.nkle.poet.databinding.ActivityProfileBinding
+
 
 class Profile : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null
@@ -43,15 +45,13 @@ class Profile : AppCompatActivity() {
         binding.likes.text = "Likes: " + (userInfo["likes"] as ArrayList<String>).size
         binding.myPoems.text = "Poems: " + userInfo["poems"].toString()
         binding.profileName.text = userInfo["name"].toString()
-        Toast.makeText(this, userInfo["name"].toString(), Toast.LENGTH_SHORT).show()
-        Log.i("++++++" , userInfo.toString())
         if (intent.getStringExtra("from") == "register") {
 
             val arr = mutableListOf<HashMap<*, *>>(
                     hashMapOf(
                             "posts" to "No current users"
                     )
-                    )
+            )
             adapter = MyPoemRecyclerAdapter(arr)
             a.adapter = adapter
             val userinfo = intent.getSerializableExtra("user_data") as HashMap<String, Unit>
@@ -65,7 +65,11 @@ class Profile : AppCompatActivity() {
             val userinfo = intent.getSerializableExtra("user_data")!! as HashMap<*, *>
 
             val loading = LoadingDialog(this)
-            DownloadImageFromInternet(findViewById<ImageView>(R.id.profile)).execute(userinfo["img_url"].toString())
+            if(userInfo["img_url"].toString() == "1") {
+                binding.profile.setImageResource(R.drawable.default_profile)
+            } else {
+                DownloadImageFromInternet(findViewById<ImageView>(R.id.profile)).execute(userinfo["img_url"].toString())
+            }
 
 //            DownloadImageFromInternet(findViewById(R.id.profile)).execute(intent.getStringExtra(userinfo["img_url"].toString().trim()))
 //            this is a demo
@@ -74,42 +78,39 @@ class Profile : AppCompatActivity() {
             val user = auth.currentUser
             loading.startLoading()
             db.collection("poems")
-                .whereEqualTo("user_id", user?.uid )
+                .whereEqualTo("user_id", userInfo["user_id"])
                 .get()
                 .addOnSuccessListener {
 
-                    var ls = mutableListOf<HashMap<*,*>>()
+                    var ls = mutableListOf<HashMap<*, *>>()
                     val user = hashMapOf(
-                        "name" to userInfo["name"],
-                        "img_url" to userInfo["img_url"],
-                        "likes" to userInfo["likes"],
-                        "poems" to userInfo["poems"],
-                        "user_id" to userInfo["user_id"],
-                        "password" to userInfo["password"],
-                        "uuid" to userInfo["uuid"],
-                    )
-                    for (doc in it.documents) {
-//                        Toast.makeText(this, doc["title"].toString(), Toast.LENGTH_SHORT).show()
-                        ls.add(hashMapOf(
-                            "title" to doc["title"].toString(),
-                            "id" to doc.id,
-                            "user_id" to doc["user_id"],
-                            "content" to doc["body"],
-                            "img_url" to doc["img_url"],
-                            "name" to doc["name"],
-                            "like_count" to doc["like_count"],
+                            "name" to userInfo["name"],
+                            "img_url" to userInfo["img_url"],
                             "likes" to userInfo["likes"],
                             "poems" to userInfo["poems"],
+                            "user_id" to userInfo["user_id"],
                             "password" to userInfo["password"],
                             "uuid" to userInfo["uuid"],
+                    )
+                    for (doc in it.documents) {
+                        ls.add(hashMapOf(
+                                "title" to doc["title"].toString(),
+                                "id" to doc.id,
+                                "user_id" to doc["user_id"],
+                                "content" to doc["body"],
+                                "img_url" to doc["img_url"],
+                                "name" to doc["name"],
+                                "like_count" to doc["like_count"],
+                                "likes" to userInfo["likes"],
+                                "poems" to userInfo["poems"],
+                                "password" to userInfo["password"],
+                                "uuid" to userInfo["uuid"],
                         ))
                     }
 
                     adapter = MyPoemRecyclerAdapter(ls)
                     a.adapter = adapter
-//                    adapter.notifyDataSetChanged()
                     loading.isDismiss()
-                    Toast.makeText(this, userinfo["img_url"].toString(), Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
                     Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
                 }
@@ -120,7 +121,6 @@ class Profile : AppCompatActivity() {
             var sharedPref = getSharedPreferences("myPref", Context.MODE_PRIVATE)
             var editor = sharedPref.edit();
 
-
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finishAffinity()
@@ -128,17 +128,15 @@ class Profile : AppCompatActivity() {
         binding.registerAddPost.setOnClickListener {
             val intent = Intent(this, AddPost::class.java)
             val user = hashMapOf(
-                "name" to userInfo["name"],
-                "img_url" to userInfo["img_url"],
-                "likes" to userInfo["likes"],
-                "poems" to userInfo["poems"],
-                "user_id" to userInfo["user_id"],
-                "password" to userInfo["password"],
-                "uuid" to userInfo["uuid"],
+                    "name" to userInfo["name"],
+                    "img_url" to userInfo["img_url"],
+                    "likes" to userInfo["likes"],
+                    "poems" to userInfo["poems"],
+                    "user_id" to userInfo["user_id"],
+                    "password" to userInfo["password"],
+                    "uuid" to userInfo["uuid"],
             )
-            Toast.makeText(this, user["poems"].toString(), Toast.LENGTH_SHORT).show()
 
-//
             intent.putExtra("user_data", user)
             startActivity(intent)
         }
@@ -154,7 +152,7 @@ class Profile : AppCompatActivity() {
     @Suppress("DEPRECATION")
     private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
         init {
-            Toast.makeText(applicationContext, "Please wait, it may take a few minute...",     Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Please wait, it may take a few minute...", Toast.LENGTH_SHORT).show()
         }
         override fun doInBackground(vararg urls: String): Bitmap? {
             val imageURL = urls[0]
