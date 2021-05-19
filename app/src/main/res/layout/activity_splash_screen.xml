@@ -29,7 +29,7 @@
             android:textSize="30sp"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:text="Poet" />
+            android:text="ስንኝ" />
 
         <ProgressBar
             android:id="@+id/splash_progress"
